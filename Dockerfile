@@ -18,6 +18,7 @@ RUN apt-get update && \
       libxext6 
 
 COPY requirements.txt /conf/
+COPY .datacube.conf /
 
 RUN pip install --no-cache-dir --requirement /conf/requirements.txt
 RUN pip install --extra-index-url="https://packages.dea.ga.gov.au" \
