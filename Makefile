@@ -28,6 +28,12 @@ product: ## 3. Add a product definition for Sentinel-2
 
 index: ## 4. Index some data (Change extents with BBOX='<left>,<bottom>,<right>,<top>')
 	docker-compose exec -T openeo_odc_driver bash -c "stac-to-dc --bbox='$(BBOX)' --catalog-href='https://earth-search.aws.element84.com/v0/' --collections='sentinel-s2-l2a-cogs' --datetime='2023-01-01/2023-07-01'"
+	docker-compose exec -T openeo_odc_driver bash -c "stac-to-dc --bbox='20,39,25,41' --catalog-href='https://earth-search.aws.element84.com/v1/' --collections='sentinel-s2-l2a' --datetime='2023-01-01/2023-07-01'"
+	11/02/2023 07:57:38: WARNING: Didn't find any items, finishing.
+	docker-compose exec -T openeo_odc_driver bash -c "stac-to-dc --bbox='20,39,25,41' --catalog-href='https://earth-search.aws.element84.com/v1/' --collections='sentinel-2-l1c' --datetime='2023-01-01/2023-07-01'"
+	KeyError: 'sentinel:latitude_band'
+	Indexing from STAC API...
+	Added 0 Datasets, failed 1082 Datasets
 
 explorer: ## 5. Prepare the explorer
 	docker-compose exec -T explorer cubedash-gen --init --all
