@@ -23,8 +23,6 @@ init: ## 2. Prepare the database
 	docker-compose exec -T openeo_odc_driver datacube -v system init
 
 product: ## 3. Add a product definition for Sentinel-2
-	docker-compose exec -T openeo_odc_driver wget https://raw.githubusercontent.com/digitalearthafrica/config/master/products/esa_s2_l2a.odc-product.yaml
-	docker-compose exec -T openeo_odc_driver datacube product add esa_s2_l2a.odc-product.yaml
 	docker-compose exec -T openeo_odc_driver wget https://datacubepublicbucket.s3.us-west-2.amazonaws.com/s2_l2a.odc-product.yaml
 	docker-compose exec -T openeo_odc_driver datacube product add s2_l2a.odc-product.yaml
 
