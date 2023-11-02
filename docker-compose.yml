@@ -39,7 +39,7 @@ services:
       - DB_DATABASE=opendatacube
       - AWS_NO_SIGN_REQUEST=true
       - DATACUBE_CONFIG_PATH=/conf
-      - ODC_CONFIG_FILE=/conf
+      - ODC_CONFIG_PATH=/conf
     links:
       - postgres:postgres
       - explorer:explorer
