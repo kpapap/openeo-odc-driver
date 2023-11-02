@@ -1,0 +1,21 @@
+FROM postgis/postgis:12-2.5
+
+ENV DEBIAN_FRONTEND=noninteractive \
+    LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8 \
+    TINI_VERSION=v0.19.0
+    
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+RUN apt-get update && \
+    apt-get install -y \
+      build-essential \
+      git \
+      wget
+
+COPY .datacube.conf /etc/datacube.conf
+
+WORKDIR /
+
+ENTRYPOINT ["/tini", "--"]
