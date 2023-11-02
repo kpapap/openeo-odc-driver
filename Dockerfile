@@ -18,7 +18,7 @@ RUN apt-get update && \
       libxext6 
 
 COPY requirements.txt /conf/
-COPY .datacube.conf /
+COPY .datacube.conf /conf/datacube.conf
 
 RUN pip install --no-cache-dir --requirement /conf/requirements.txt
 RUN pip install --extra-index-url="https://packages.dea.ga.gov.au" \
@@ -29,6 +29,9 @@ RUN pip install --extra-index-url="https://packages.dea.ga.gov.au" \
   odc-io \
   odc-cloud[ASYNC] \
   odc-dscache \
+  odc-stac[botocore] \
+  odc-apps-cloud \
+  odc-apps-dc-tools \
   odc-index
 
 RUN git clone https://github.com/Open-EO/openeo-pg-parser-python.git
