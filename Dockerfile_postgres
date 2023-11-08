@@ -1,3 +1,0 @@
-FROM postgis/postgis:12-2.5
-
-COPY .datacube.conf /etc/datacube.conf

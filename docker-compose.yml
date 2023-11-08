@@ -1,21 +1,18 @@
-version: "3"
+version: "4"
 
 services:
   postgres:
-    build:
-      context: .
-      dockerfile: Dockerfile_postgres
-    environment:
-      - POSTGRES_DB=opendatacube
-      - POSTGRES_PASSWORD=opendatacubepassword
-      - POSTGRES_USER=opendatacube
-      - DATACUBE_CONFIG_PATH=/etc
-      - ODC_CONFIG_PATH=/etc
-    volumes:
-      - ./data/pg:/var/lib/postgresql/data
+    image: postgis/postgis:12-3.4-alpine
     ports:
-      - 5433:5432
+      - "5434:5432"
+    environment:
+      POSTGRES_PASSWORD: opendatacubepassword
     restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   explorer:
     build:
@@ -23,9 +20,9 @@ services:
       dockerfile: Dockerfile_explorer
     environment:
       - DB_HOSTNAME=postgres
-      - DB_USERNAME=opendatacube
+      - DB_USERNAME=postgres
       - DB_PASSWORD=opendatacubepassword
-      - DB_DATABASE=opendatacube
+      - DB_DATABASE=postgres
     links:
       - postgres:postgres
     ports:
@@ -38,10 +35,16 @@ services:
       dockerfile: Dockerfile
     environment:
       - DB_HOSTNAME=postgres
-      - DB_USERNAME=opendatacube
+      - DB_USERNAME=postgres
       - DB_PASSWORD=opendatacubepassword
-      - DB_DATABASE=opendatacube
-      - AWS_NO_SIGN_REQUEST=true
+      - DB_DATABASE=postgres
+      - DB_PORT=5432
+      - AWS_DEFAULT_REGION=us-west-2
+      - PRODUCT_CATALOG=https://raw.githubusercontent.com/GeoscienceAustralia/dea-config/a4f39b485b33608a016032d9987251881fec4b6f/workspaces/sandbox-products.csv
+      - METADATA_CATALOG=https://raw.githubusercontent.com/GeoscienceAustralia/dea-config/a4f39b485b33608a016032d9987251881fec4b6f/workspaces/sandbox-metadata.yaml
+    depends_on:
+      postgres:
+        condition: service_healthy
     links:
       - postgres:postgres
       - explorer:explorer
