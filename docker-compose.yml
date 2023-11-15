@@ -10,6 +10,7 @@ services:
       - DB_USERNAME=postgres
       - DB_PASSWORD=opendatacubepassword
       - DB_DATABASE=postgres
+      - DB_PORT=5434
       - AWS_NO_SIGN_REQUEST=true
     ports:
       - 5001:5000
