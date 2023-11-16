@@ -23,7 +23,7 @@ OPENDATACUBE_CONFIG_FILE = None
 FLASK_APP_NAME = 'openeo_odc_driver'
 
 # datacube-explorer endpoint. For local deployment it should be `http://0.0.0.0:9000` and for the Docker deployment `http://explorer:9000`
-DATACUBE_EXPLORER_ENDPOINT = 'http://explorer:9000'
+DATACUBE_EXPLORER_ENDPOINT = 'http://52.24.100.183:9001'
 
 USE_CACHED_COLLECTIONS = False
 
